@@ -1,6 +1,4 @@
 require 'test_helper'
-require 'minitest/autorun'
-require 'minitest/pride'
 require './lib/main'
 
 class MainTest < MiniTest::Test
