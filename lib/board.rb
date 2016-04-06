@@ -31,7 +31,7 @@ class Board
     x.times do |i|
       @board << []
       y.times do |inner_i|
-        @board[i] << [inner_i]
+        @board[i] << []
       end
     end
   end
