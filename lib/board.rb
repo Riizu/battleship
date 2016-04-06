@@ -38,23 +38,41 @@ class Board
 
   def valid_position(position)
     position.length.times do |i|
-      if !position[i+1].nil?
-        if position[i][1] + 2 == position[i+1][1]
+      current = i
+      next_value = i + 1
+      if !position[next_value].nil?
+        if !adjacenct?(position, current, next_value)
           return false
-        elsif position[i][0] + 2 == position[i+1][0]
-          return false
-        elsif position[i][0] < 0 || position[i][0] == @size[0]
-          return false
-        elsif position[i][1] < 0 || position[i][1] == @size[1]
-          return false
-        elsif position[i+1][0] < 0 || position[i+1][0] == @size[0]
-          return false
-        elsif position[i+1][1] < 0 || position[i+1][1] == @size[1]
+        elsif !in_bounds?(position, current, next_value)
           return false
         end
       end
     end
     return true
+  end
+
+  def adjacenct?(position, current, next_value)
+    if position[current][1] + 2 == position[next_value][1]
+      return false
+    elsif position[current][0] + 2 == position[next_value][0]
+      return false
+    else
+      return true
+    end
+  end
+
+  def in_bounds?(position, current, next_value)
+    if position[current][0] < 0 || position[current][0] == @size[0]
+      return false
+    elsif position[current][1] < 0 || position[current][1] == @size[1]
+      return false
+    elsif position[next_value][0] < 0 || position[next_value][0] == @size[0]
+      return false
+    elsif position[next_value][1] < 0 || position[next_value][1] == @size[1]
+      return false
+    else
+      return true
+    end
   end
 
 end
