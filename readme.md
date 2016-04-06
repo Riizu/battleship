@@ -45,7 +45,7 @@ and manages program flow
 * Game: Primary game logic location. Instantiates all relevant game objects
 * Player: Represents a player. Stores owned ships, guess history, places ships
 * Guess: Represents a guess. Stores its location and what type it was.
-* Ship: Represents a given ship. Stores data on ship style, sunk state, hit state, position
-* Board: Handles board draws, borders, and board size
+* Ship: Represents a given ship. Stores data on ship style, sunk state, hit state, position, placed state, ship owner, places on board
+* Board: each player's existing ship count and board size
 * AI: Represents an AI player for single-player games
 * InputHandler: Controls and manages all user input
