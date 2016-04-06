@@ -13,7 +13,7 @@ class Ship
     if board.valid_position(position)
       @position = position
     else
-      raise ArgumentError
+      @position = nil
     end
   end
 

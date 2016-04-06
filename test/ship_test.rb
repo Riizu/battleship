@@ -26,9 +26,9 @@ class ShipTest < Minitest::Test
   end
 
   def test_set_position_invalid
-    assert_raises ArgumentError do
-      @ship.set_position(@board,[[0,0],[0,2]])
-    end
+    @ship.set_position(@board,[[0,0],[0,2]])
+
+    assert_equal nil, @ship.position
   end
 
   def test_not_sunk_if_health_greater_than_zero
