@@ -1,22 +1,34 @@
 require 'test_helper'
 require './lib/ship'
+require './lib/board'
 
 class ShipTest < Minitest::Test
   def setup
-    @ship = Ship.new(2, "A1", "B1")
+    @board = Board.new("Beginner")
+    @player = "Change me to a player object!!!!"
+    @ship = Ship.new(@player, @board, 2, [[0,0], [1,0]])
   end
 
   def test_ship_initialize
+    expected = [[0,0], [1,0]]
+
     assert @ship
     assert_equal 2, @ship.size
-    assert_equal ["A1", "B1"], @ship.position
+    assert_equal expected, @ship.position
 
   end
 
   def test_set_position
-    @ship.set_position("A1", "A2")
+    @ship.set_position(@board, [[0,0], [0,1]])
+    expected = [[0,0], [0,1]]
 
-    assert_equal ["A1", "A2"], @ship.position
+    assert_equal expected, @ship.position
+  end
+
+  def test_set_position_invalid
+    assert_raises ArgumentError do
+      @ship.set_position(@board,[[0,0],[0,2]])
+    end
   end
 
   def test_not_sunk_if_health_greater_than_zero

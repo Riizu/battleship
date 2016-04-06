@@ -48,4 +48,5 @@ and manages program flow
 * Ship: Represents a given ship. Stores data on ship style, sunk state, hit state, position, placed state, ship owner, places on board
 * Board: each player's existing ship count and board size
 * AI: Represents an AI player for single-player games
-* InputHandler: Controls and manages all user input
+* InputHandler: Controls and manages all user input, parses
+guesses

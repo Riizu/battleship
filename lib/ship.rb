@@ -1,15 +1,20 @@
 class Ship
-  attr_reader :size, :position, :health
+  attr_reader :owner, :size, :position, :health
 
-  def initialize(size, *position)
+  def initialize(player, board, size, position)
     @size = size
-    @position = position
+    set_position(board, position)
     @health = size
     @sunk = false
+    @owner = player
   end
 
-  def set_position(*position)
-    @position = position
+  def set_position(board, position)
+    if board.valid_position(position)
+      @position = position
+    else
+      raise ArgumentError
+    end
   end
 
   def sunk?
