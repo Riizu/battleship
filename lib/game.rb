@@ -12,6 +12,7 @@ class Game
     @p2 = Ai.new(difficulty)
     @board = Board.new(difficulty)
     @running = false
+    @max_ship_size = get_max_ship_size
   end
 
   def start(input_handler)
@@ -21,42 +22,37 @@ class Game
     while @running
       if first_run
         #display start_game info
-        p1_seed_board(input_handler)
-        #p2_seed_board(input_handler)
+        p2_seed_board(input_handler, @max_ship_size)
+        p1_seed_board(input_handler, @max_ship_size)
         #display board
         first_run = false
         @running = false
       end
-
-      #p1 get guess
-      #calculate changes
-      #p2 get guess
-      #calculate changes
+      input = input_handler.get_input
+      update(input)
+      input = @p2.generate_guess
+      update(input)
       #display Board
       #check for win
     end
   end
 
-  def update
+  def update(input)
 
   end
 
-  def p1_seed_board(input_handler)
+  def get_max_ship_size
     if @difficulty == "Beginner"
-      get_beginner_boats(input_handler)
+      3
     elsif @difficulty == "Intermediate"
-      get_intermediate_boats(input_handler)
+      4
     elsif @difficulty == "Advanced"
-      get_advanced_boats(input_handler)
+      5
     end
   end
 
-  def p2_seed_board(input_handler)
-
-  end
-
-  def get_beginner_boats(input_handler)
-    current_boat_size = 3
+  def p1_seed_board(input_handler, max_ship_size)
+    current_boat_size = max_ship_size
     positions = []
     while current_boat_size >= 2
       while !@board.valid_position(positions)
@@ -64,34 +60,23 @@ class Game
         positions = input_handler.get_coordinates
         puts positions.to_s
       end
-      puts "placing!"
       @p1.place_ship(@board, current_boat_size, positions)
       current_boat_size -= 1
       positions = []
     end
   end
 
-  def get_intermediate_boats(input_handler)
-    current_boat_size = 4
+  def p2_seed_board(input_handler, max_ship_size)
+    current_boat_size = max_ship_size
     positions = []
     while current_boat_size >= 2
-      until @board.valid_position(positions)
-        positions = input_handler.get_coordinates
+      while !@board.valid_position(positions)
+        positions = @p2.generate_positions(@board, current_boat_size)
       end
-      @p1.place_ship(@board, current_boat_size, positions)
+      @p2.place_ship(@board, current_boat_size, positions)
       current_boat_size -= 1
-    end
-  end
-
-  def get_advanced_boats(input_handler)
-    current_boat_size = 5
-    positions = []
-    while current_boat_size >= 2
-      until @board.valid_position(positions)
-        positions = input_handler.get_coordinates
-      end
-      @p1.place_ship(@board, current_boat_size, positions)
-      current_boat_size -= 1
+      puts current_boat_size
+      positions = []
     end
   end
 end

@@ -10,11 +10,7 @@ class Ship
   end
 
   def set_position(board, position)
-    if board.valid_position(position)
       @position = position
-    else
-      @position = nil
-    end
   end
 
   def sunk?

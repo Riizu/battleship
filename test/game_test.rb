@@ -25,7 +25,4 @@ class GameTest < Minitest::Test
     assert @game
   end
 
-  def test_update
-    @game.update
-  end
 end
