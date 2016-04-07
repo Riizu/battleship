@@ -17,26 +17,14 @@ class PlayerTest < Minitest::Test
   end
 
   def test_make_guess
-    @player.make_guess(@board,"A1")
+    @player.make_guess(@board,[0,0])
 
-    assert_equal "A1", @player.guess_history[0].guess
-  end
-
-  def test_make_guess_invalid
-    result = @player.make_guess(@board,"Z23")
-
-    assert_equal nil, result
+    assert_equal [0,0], @player.guess_history[0].position
   end
 
   def test_place_ship
     @player.place_ship(@board, 2, [[0,0],[0,1]])
 
     assert_equal Ship, @player.owned_ships[0].class
-  end
-
-  def test_place_ship_invalid
-    @player.place_ship(@board, 2, [[0,0],[0,2]])
-
-    assert_equal nil, @player.owned_ships[0]
   end
 end

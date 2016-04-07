@@ -55,6 +55,7 @@ class Board
   end
 
   def valid_position(position)
+    return false if position.nil?
     position.length.times do |i|
       current = i
       next_value = i + 1

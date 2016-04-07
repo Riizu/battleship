@@ -124,7 +124,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_add_guess
-    guess = Guess.new("player", @board, "A3")
+    guess = Guess.new("player", @board, [0,2])
     @board.add(guess, [[0,2]])
 
     assert_equal "miss",@board.board[0][2]
@@ -134,7 +134,7 @@ class BoardTest < Minitest::Test
     ship = Ship.new("player", @board, 2, [[0,0],[0,1]])
 
     @board.add(ship,[[0,0],[0,1]])
-    @board.add(Guess.new("player", @board, "A1"), [[0,1]])
+    @board.add(Guess.new("player", @board, [0,0]), [[0,1]])
 
     assert_equal "hit", @board.board[0][1]
   end
