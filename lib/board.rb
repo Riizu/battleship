@@ -68,6 +68,7 @@ class Board
         end
       end
     end
+    return false if position == []
     return true
   end
 
