@@ -83,6 +83,38 @@ class BoardTest < Minitest::Test
     refute @board.valid_position([[0,0],[0,1]])
   end
 
+  def test_check_left
+    assert_equal [[3,3],[2,3],[1,3]], @board.check_left([3,3], 2)
+  end
+
+  def test_check_right
+    assert_equal [[0,0],[1,0],[2,0]], @board.check_right([0,0], 2)
+  end
+
+  def test_check_up
+    assert_equal [[3,3],[3,2],[3,1]], @board.check_up([3,3], 2)
+  end
+
+  def test_check_down
+    assert_equal [[0,0],[0,1],[0,2]], @board.check_down([0,0], 2)
+  end
+
+  def test_check_left_invalid
+    refute @board.check_left([0,0], 2)
+  end
+
+  def test_check_right_invalid
+    refute @board.check_right([3,3], 2)
+  end
+
+  def test_check_up_invalid
+    refute @board.check_up([0,0], 2)
+  end
+
+  def test_check_down_invalid
+    refute @board.check_down([3,3], 2)
+  end
+
   def test_add_ship
     ship = Ship.new("player", @board, 2, [[0,0],[0,1]])
     @board.add(ship,[[0,0],[0,1]])
@@ -96,7 +128,6 @@ class BoardTest < Minitest::Test
     @board.add(guess, [[0,2]])
 
     assert_equal "miss",@board.board[0][2]
-
   end
 
   def test_add_guess_hit
