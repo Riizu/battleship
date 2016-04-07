@@ -4,7 +4,8 @@ require './lib/guess'
 class GuessTest < Minitest::Test
   def setup
     @player = "CHANGE ME"
-    @guess = Guess.new(@player, "A1")
+    @board = Board.new("Beginner")
+    @guess = Guess.new(@player, @board, "A1")
   end
 
   def test_initialize
@@ -14,13 +15,13 @@ class GuessTest < Minitest::Test
   end
 
   def test_parse
-    parsed_guess = @guess.parse("B3")
+    parsed_guess = @guess.parse(@board, "B3")
 
     assert_equal [1,2], parsed_guess
   end
 
   def test_parse_invalid
-    parsed_guess = @guess.parse("Z23")
+    parsed_guess = @guess.parse(@board, "Z23")
 
     assert_equal nil, parsed_guess
   end

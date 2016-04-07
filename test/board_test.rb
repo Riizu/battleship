@@ -1,5 +1,7 @@
 require './test/test_helper'
 require './lib/board'
+require './lib/ship'
+require './lib/guess'
 
 class BoardTest < Minitest::Test
   def setup
@@ -72,5 +74,37 @@ class BoardTest < Minitest::Test
   def test_invalid_position_out_of_bounds_column
     refute @board.valid_position([[0,0], [0,-1]])
     refute @board.valid_position([[0,3], [0,4]])
+  end
+
+  def test_invalid_position_occupied
+    ship = Ship.new("player", @board, 2, [[0,0],[0,1]])
+    @board.add(ship,[[0,0],[0,1]])
+
+    refute @board.valid_position([[0,0],[0,1]])
+  end
+
+  def test_add_ship
+    ship = Ship.new("player", @board, 2, [[0,0],[0,1]])
+    @board.add(ship,[[0,0],[0,1]])
+
+    assert_equal ship, @board.board[0][0]
+    assert_equal ship, @board.board[0][1]
+  end
+
+  def test_add_guess
+    guess = Guess.new("player", @board, "A3")
+    @board.add(guess, [[0,2]])
+
+    assert_equal "miss",@board.board[0][2]
+
+  end
+
+  def test_add_guess_hit
+    ship = Ship.new("player", @board, 2, [[0,0],[0,1]])
+
+    @board.add(ship,[[0,0],[0,1]])
+    @board.add(Guess.new("player", @board, "A1"), [[0,1]])
+
+    assert_equal "hit", @board.board[0][1]
   end
 end

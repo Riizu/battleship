@@ -17,13 +17,13 @@ class PlayerTest < Minitest::Test
   end
 
   def test_make_guess
-    @player.make_guess("A1")
+    @player.make_guess(@board,"A1")
 
     assert_equal "A1", @player.guess_history[0].guess
   end
 
   def test_make_guess_invalid
-    result = @player.make_guess("Z23")
+    result = @player.make_guess(@board,"Z23")
 
     assert_equal nil, result
   end
