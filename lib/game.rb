@@ -15,24 +15,29 @@ class Game
     @max_ship_size = get_max_ship_size
   end
 
-  def start(input_handler)
+  def start(input_handler,display_handler)
     @running = true
     first_run = true
 
     while @running
       if first_run
-        #display start_game info
+        display_handler.display_game_start
         p2_seed_board(input_handler, @max_ship_size)
         p1_seed_board(input_handler, @max_ship_size)
-        #display board
+        display_handler.display_board(@board.board)
         first_run = false
-        @running = false
+        puts "in first run"
+        #@running = false
       end
-      input = input_handler.get_input
-      update(input)
-      input = @p2.generate_guess
-      update(input)
-      #display Board
+      display_handler.prompt_for_target
+      p1_guess = input_handler.get_coordinates
+      puts p1_guess.to_s
+      @p1.make_guess(@board, p1_guess[0])
+      p2_guess = [@p2.generate_guess]
+      puts p2_guess.to_s
+      p2.make_guess(@board, p2_guess[0])
+
+      display_handler.display_board(@board.board)
       #check for win
     end
   end
@@ -58,7 +63,6 @@ class Game
       while !@board.valid_position(positions)
         print "please enter coordinates for the #{current_boat_size}-unit ship: "
         positions = input_handler.get_coordinates
-        puts positions.to_s
       end
       @p1.place_ship(@board, current_boat_size, positions)
       current_boat_size -= 1
@@ -75,7 +79,6 @@ class Game
       end
       @p2.place_ship(@board, current_boat_size, positions)
       current_boat_size -= 1
-      puts current_boat_size
       positions = []
     end
   end

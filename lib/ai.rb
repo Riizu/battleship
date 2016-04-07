@@ -23,7 +23,8 @@ class Ai < Player
   end
 
   def generate_guess
-    result = @letters[rand(@range)] + @numbers[rand(@range)].to_s
+    result = []
+    result << rand(@range) << rand(@range)
   end
 
   def generate_positions(board, size)

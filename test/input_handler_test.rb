@@ -11,7 +11,7 @@ class InputHanderTest < MiniTest::Test
   end
 
   def test_get_input
-    
+    skip
     print "Testing get_input! Enter 'test': "
 
     result = @input_handler.get_input
@@ -28,7 +28,7 @@ class InputHanderTest < MiniTest::Test
   end
 
   def test_get_coordinates
-
+    skip
     print "Testing get_coordinates! Enter a 'A1 A2': "
 
     result = @input_handler.get_coordinates

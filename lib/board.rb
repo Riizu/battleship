@@ -98,7 +98,8 @@ class Board
   end
 
   def occupied?(x, y)
-    if @board[x][y].class == Ship
+    return false if @board[x].nil?
+    if @board[x].class == Ship
       return true
     else
       return false

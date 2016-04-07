@@ -25,12 +25,6 @@ class ShipTest < Minitest::Test
     assert_equal expected, @ship.position
   end
 
-  def test_set_position_invalid
-    @ship.set_position(@board,[[0,0],[0,2]])
-
-    assert_equal nil, @ship.position
-  end
-
   def test_not_sunk_if_health_greater_than_zero
     refute @ship.sunk?
   end

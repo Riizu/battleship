@@ -3,11 +3,13 @@ require './lib/game'
 require './lib/player'
 require './lib/ai'
 require './lib/input_handler'
+require './lib/display_handler'
 
 class GameTest < Minitest::Test
   def setup
     @game = Game.new("Beginner")
     @input_handler = InputHandler.new
+    @display_handler = DisplayHandler.new
   end
 
   def test_initialize
@@ -19,8 +21,8 @@ class GameTest < Minitest::Test
   end
 
   def test_start
-
-    @game.start(@input_handler)
+    
+    @game.start(@input_handler, @display_handler)
 
     assert @game
   end
